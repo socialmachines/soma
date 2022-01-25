@@ -1,0 +1,11 @@
+True := Object new.
+
+True externalBehavior: "ifTrue:Else:" Does: {
+  |tBlock. elseBlock. T|
+  tBlock value
+}
+
+; externalBehavior: "not" Does: {
+  |T|
+  False
+}

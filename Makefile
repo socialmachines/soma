@@ -12,7 +12,7 @@ clean:
 format:
 	@gofmt -w ./
 
-test:
+test: format
 	@go test
 	@make -C $(EXE_DIR) test
 
