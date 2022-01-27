@@ -65,15 +65,10 @@ var tokens = []string{
 
 	LEFT_BRACE:  "{",
 	RIGHT_BRACE: "}",
-	LEFT_BRACK:  "[",
-	RIGHT_BRACK: "]",
-	LEFT_PAREN:  "(",
-	RIGHT_PAREN: ")",
 
 	DECLARE: ":=",
 
 	FLUENT: ";",
-	COMMA:  ",",
 	PERIOD: ".",
 }
 
