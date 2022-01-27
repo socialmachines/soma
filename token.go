@@ -34,19 +34,14 @@ const (
 	BINARY        // '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\', '~':
 
 	// Grouping
-	LEFT_BRACE  // {
-	RIGHT_BRACE // }
 	LEFT_BRACK  // [
 	RIGHT_BRACK // ]
-	LEFT_PAREN  // (
-	RIGHT_PAREN // )
 
 	// Assignment
 	DECLARE // :=
 
 	// Puncuation
 	FLUENT // ;
-	COMMA  // ,
 	PERIOD // .
 )
 
@@ -63,8 +58,8 @@ var tokens = []string{
 	UPPER_KEYWORD: "UPPER_KEYWRD",
 	BINARY:        "BINARY",
 
-	LEFT_BRACE:  "{",
-	RIGHT_BRACE: "}",
+	LEFT_BRACK:  "[",
+	RIGHT_BRACK: "]",
 
 	DECLARE: ":=",
 

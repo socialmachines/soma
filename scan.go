@@ -134,14 +134,10 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 				s.next()
 				tok, lit = DECLARE, ":="
 			}
-		case '{':
-			tok, lit = LEFT_BRACE, "{"
-		case '}':
-			tok, lit = RIGHT_BRACE, "}"
-		case '(':
-			tok, lit = LEFT_PAREN, "("
-		case ')':
-			tok, lit = RIGHT_PAREN, ")"
+		case '[':
+			tok, lit = LEFT_BRACK, "["
+		case ']':
+			tok, lit = RIGHT_BRACK, "]"
 		case ';':
 			tok, lit = FLUENT, ";"
 		case '.':
