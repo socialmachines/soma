@@ -107,16 +107,18 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 	case unicode.IsUpper(ch):
 		lit = s.scanIdentifier()
 		if s.ch == ':' {
+			s.next()
 			tok, lit = UPPER_KEYWORD, lit+":"
 		} else {
-			tok = UPPER_IDENT
+			tok, lit = UPPER_IDENT, lit
 		}
 	case unicode.IsLower(ch):
 		lit = s.scanIdentifier()
 		if s.ch == ':' {
+			s.next()
 			tok, lit = LOWER_KEYWORD, lit+":"
 		} else {
-			tok = LOWER_IDENT
+			tok, lit = LOWER_IDENT, lit
 		}
 	case isBinary(ch):
 		tok, lit = BINARY, s.scanBinary()
@@ -134,12 +136,14 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 				s.next()
 				tok, lit = DECLARE, ":="
 			}
-		case '[':
-			tok, lit = LEFT_BRACK, "["
-		case ']':
-			tok, lit = RIGHT_BRACK, "]"
-		case ';':
-			tok, lit = FLUENT, ";"
+		case '{':
+			tok, lit = LEFT_BRACE, "{"
+		case '}':
+			tok, lit = RIGHT_BRACE, "}"
+		case '(':
+			tok, lit = LEFT_PAREN, "("
+		case ')':
+			tok, lit = RIGHT_PAREN, ")"
 		case '.':
 			tok, lit = PERIOD, "."
 		default:
@@ -282,6 +286,7 @@ func isDigit(ch rune) bool {
 
 func isLetter(ch rune) bool {
 	lower := func(ch rune) rune {
+		// returns lower-case ch iff ch is ASCII letter
 		return ('a' - 'A') | ch
 	}
 	return 'a' <= lower(ch) && lower(ch) <= 'z' || ch == '_' || ch >= utf8.RuneSelf && unicode.IsLetter(ch)
