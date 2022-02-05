@@ -108,47 +108,58 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 		lit = s.scanIdentifier()
 		if s.ch == ':' {
 			s.next()
-			tok, lit = UPPER_KEYWORD, lit+":"
+			tok, lit = TOK_UPPER_KEYWORD, lit+":"
 		} else {
-			tok, lit = UPPER_IDENT, lit
+			tok, lit = TOK_UPPER_IDENT, lit
 		}
 	case unicode.IsLower(ch):
 		lit = s.scanIdentifier()
 		if s.ch == ':' {
 			s.next()
-			tok, lit = LOWER_KEYWORD, lit+":"
+			tok, lit = TOK_LOWER_KEYWORD, lit+":"
 		} else {
-			tok, lit = LOWER_IDENT, lit
+			tok, lit = TOK_LOWER_IDENT, lit
 		}
 	case isBinary(ch):
-		tok, lit = BINARY, s.scanBinary()
+		tok, lit = TOK_BINARY, s.scanBinary()
+		if lit == "->" {
+			tok = TOK_DEFINE
+		}
 	default:
 		s.next()
 		switch ch {
 		case -1:
-			tok, lit = EOF, "EOF"
+			tok, lit = TOK_EOF, "EOF"
 		case '\'':
-			tok, lit = COMMENT, s.scanComment()
+			tok, lit = TOK_COMMENT, s.scanComment()
 		case '"':
-			tok, lit = STRING, s.scanString()
+			tok, lit = TOK_STRING, s.scanString()
 		case ':':
 			if s.ch == '=' {
 				s.next()
-				tok, lit = DECLARE, ":="
+				tok, lit = TOK_DECLARE, ":="
 			}
 		case '{':
-			tok, lit = LEFT_BRACE, "{"
+			tok, lit = TOK_LEFT_BRACE, "{"
 		case '}':
-			tok, lit = RIGHT_BRACE, "}"
+			tok, lit = TOK_RIGHT_BRACE, "}"
+		case '[':
+			tok, lit = TOK_LEFT_BRACK, "["
+		case ']':
+			tok, lit = TOK_RIGHT_BRACK, "]"
 		case '(':
-			tok, lit = LEFT_PAREN, "("
+			tok, lit = TOK_LEFT_PAREN, "("
 		case ')':
-			tok, lit = RIGHT_PAREN, ")"
+			tok, lit = TOK_RIGHT_PAREN, ")"
+		case ',':
+			tok, lit = TOK_COMMA, ","
+		case ';':
+			tok, lit = TOK_SEMI_COLON, ";"
 		case '.':
-			tok, lit = PERIOD, "."
+			tok, lit = TOK_PERIOD, "."
 		default:
 			s.errorf(s.file.Offset(pos), "illegal character %#U", ch)
-			tok, lit = ILLEGAL, string(ch)
+			tok, lit = TOK_ILLEGAL, string(ch)
 		}
 	}
 	return
@@ -271,7 +282,7 @@ func (s *Scanner) next() {
 
 func isBinary(ch rune) bool {
 	switch ch {
-	case '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\\', '~':
+	case '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\\', '~', '^', '%':
 		return true
 	}
 	return false

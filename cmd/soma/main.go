@@ -39,6 +39,6 @@ func NewMain() *Main {
 
 func (m *Main) Run(args ...string) error {
 	fmt.Println(args)
-	fmt.Println(soma.ILLEGAL)
+	fmt.Println(soma.TOK_ILLEGAL)
 	return nil
 }

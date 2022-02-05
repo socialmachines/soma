@@ -10,11 +10,11 @@ func TestAssignment(t *testing.T) {
 		True := Object new.
 	`
 	expected := []Token{
-		UPPER_IDENT,
-		DECLARE,
-		UPPER_IDENT,
-		LOWER_IDENT,
-		PERIOD,
+		TOK_UPPER_IDENT,
+		TOK_DECLARE,
+		TOK_UPPER_IDENT,
+		TOK_LOWER_IDENT,
+		TOK_PERIOD,
 	}
 	testTokens(t, received, expected)
 }
@@ -28,18 +28,36 @@ func TestUnary(t *testing.T) {
 		}.
 	`
 	expected := []Token{
-		COMMENT,
-		UPPER_IDENT,
-		LOWER_KEYWORD,
-		STRING,
-		UPPER_KEYWORD,
-		LEFT_BRACE,
-		BINARY,
-		LOWER_IDENT,
-		BINARY,
-		UPPER_IDENT,
-		RIGHT_BRACE,
-		PERIOD,
+		TOK_COMMENT,
+		TOK_UPPER_IDENT,
+		TOK_LOWER_KEYWORD,
+		TOK_STRING,
+		TOK_UPPER_KEYWORD,
+		TOK_LEFT_BRACE,
+		TOK_BINARY,
+		TOK_LOWER_IDENT,
+		TOK_BINARY,
+		TOK_UPPER_IDENT,
+		TOK_RIGHT_BRACE,
+		TOK_PERIOD,
+	}
+	testTokens(t, received, expected)
+}
+
+func TestUnaryDefine(t *testing.T) {
+	received := `
+		+ (t True) not -> False.
+	`
+	expected := []Token{
+		TOK_BINARY,
+		TOK_LEFT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_UPPER_IDENT,
+		TOK_RIGHT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_DEFINE,
+		TOK_UPPER_IDENT,
+		TOK_PERIOD,
 	}
 	testTokens(t, received, expected)
 }
@@ -49,29 +67,49 @@ func TestKeyword(t *testing.T) {
 		'True ifTrue: { "do something" } Else: { "do something else" }'
 		True externalBehavior: "ifTrue:Else:" Does: {
 			|trueBlock. elseBlock. t|
-			(trueBlock value)
+			trueBlock value
 		}.
 	`
 	expected := []Token{
-		COMMENT,
-		UPPER_IDENT,
-		LOWER_KEYWORD,
-		STRING,
-		UPPER_KEYWORD,
-		LEFT_BRACE,
-		BINARY,
-		LOWER_IDENT,
-		PERIOD,
-		LOWER_IDENT,
-		PERIOD,
-		LOWER_IDENT,
-		BINARY,
-		LEFT_PAREN,
-		LOWER_IDENT,
-		LOWER_IDENT,
-		RIGHT_PAREN,
-		RIGHT_BRACE,
-		PERIOD,
+		TOK_COMMENT,
+		TOK_UPPER_IDENT,
+		TOK_LOWER_KEYWORD,
+		TOK_STRING,
+		TOK_UPPER_KEYWORD,
+		TOK_LEFT_BRACE,
+		TOK_BINARY,
+		TOK_LOWER_IDENT,
+		TOK_PERIOD,
+		TOK_LOWER_IDENT,
+		TOK_PERIOD,
+		TOK_LOWER_IDENT,
+		TOK_BINARY,
+		TOK_LOWER_IDENT,
+		TOK_LOWER_IDENT,
+		TOK_RIGHT_BRACE,
+		TOK_PERIOD,
+	}
+	testTokens(t, received, expected)
+}
+
+func TestKeywordDefine(t *testing.T) {
+	received := `
+		+ (t True) ifTrue: tBlock Else: fBlock -> tBlock value.
+	`
+	expected := []Token{
+		TOK_BINARY,
+		TOK_LEFT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_UPPER_IDENT,
+		TOK_RIGHT_PAREN,
+		TOK_LOWER_KEYWORD,
+		TOK_LOWER_IDENT,
+		TOK_UPPER_KEYWORD,
+		TOK_LOWER_IDENT,
+		TOK_DEFINE,
+		TOK_LOWER_IDENT,
+		TOK_LOWER_IDENT,
+		TOK_PERIOD,
 	}
 	testTokens(t, received, expected)
 }

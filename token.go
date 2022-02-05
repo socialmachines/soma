@@ -19,54 +19,64 @@ type Token int
 
 const (
 	// Special tokens
-	ILLEGAL Token = iota
-	EOF
+	TOK_ILLEGAL Token = iota
+	TOK_EOF
 
 	// Lexical types
-	COMMENT // 'This is a comment'
-	STRING  // "This is a string"
+	TOK_COMMENT // 'This is a comment'
+	TOK_STRING  // "This is a string"
 
 	// Identifiers
-	LOWER_IDENT   // firstName
-	UPPER_IDENT   // Person
-	LOWER_KEYWORD // ifTrue:
-	UPPER_KEYWORD // Else:
-	BINARY        // '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\', '~':
+	TOK_LOWER_IDENT   // firstName
+	TOK_UPPER_IDENT   // Person
+	TOK_LOWER_KEYWORD // ifTrue:
+	TOK_UPPER_KEYWORD // Else:
+	TOK_BINARY        // '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\', '~', '^', '%'
 
 	// Grouping
-	LEFT_BRACE  // {
-	RIGHT_BRACE // }
-	LEFT_PAREN  // (
-	RIGHT_PAREN // )
+	TOK_LEFT_BRACE  // {
+	TOK_RIGHT_BRACE // }
+	TOK_LEFT_BRACK  // [
+	TOK_RIGHT_BRACK // ]
+	TOK_LEFT_PAREN  // (
+	TOK_RIGHT_PAREN // )
 
 	// Assignment
-	DECLARE // :=
+	TOK_DECLARE // :=
+	TOK_DEFINE  // ->
 
 	// Puncuation
-	PERIOD // .
+	TOK_COMMA      // ,
+	TOK_SEMI_COLON // ;
+	TOK_PERIOD     // .
 )
 
 var tokens = []string{
-	ILLEGAL: "ILLEGAL",
-	EOF:     "EOF",
+	TOK_ILLEGAL: "ILLEGAL",
+	TOK_EOF:     "EOF",
 
-	COMMENT: "COMMENT",
-	STRING:  "STRING",
+	TOK_COMMENT: "COMMENT",
+	TOK_STRING:  "STRING",
 
-	LOWER_IDENT:   "LOWER_IDENT",
-	UPPER_IDENT:   "UPPER_IDENT",
-	LOWER_KEYWORD: "LOWER_KEYWRD",
-	UPPER_KEYWORD: "UPPER_KEYWRD",
-	BINARY:        "BINARY",
+	TOK_LOWER_IDENT:   "LOWER_IDENT",
+	TOK_UPPER_IDENT:   "UPPER_IDENT",
+	TOK_LOWER_KEYWORD: "LOWER_KEYWRD",
+	TOK_UPPER_KEYWORD: "UPPER_KEYWRD",
+	TOK_BINARY:        "BINARY",
 
-	LEFT_BRACE:  "{",
-	RIGHT_BRACE: "}",
-	LEFT_PAREN:  "(",
-	RIGHT_PAREN: ")",
+	TOK_LEFT_BRACE:  "{",
+	TOK_RIGHT_BRACE: "}",
+	TOK_LEFT_BRACK:  "[",
+	TOK_RIGHT_BRACK: "]",
+	TOK_LEFT_PAREN:  "(",
+	TOK_RIGHT_PAREN: ")",
 
-	DECLARE: ":=",
+	TOK_DECLARE: ":=",
+	TOK_DEFINE:  "->",
 
-	PERIOD: ".",
+	TOK_COMMA:      ",",
+	TOK_SEMI_COLON: ";",
+	TOK_PERIOD:     ".",
 }
 
 // String returns the string corresponding to the token tok.
