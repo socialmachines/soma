@@ -36,11 +36,11 @@ const (
 	TOK_ATTR_SET      // @name:
 
 	// Grouping
-	TOK_LEFT_BRACE  // {
+	TOK_LEFT_BRACE  // { for use in blocks
 	TOK_RIGHT_BRACE // }
-	TOK_LEFT_BRACK  // [
+	TOK_LEFT_BRACK  // [ for use in collections such as maps and arrays
 	TOK_RIGHT_BRACK // ]
-	TOK_LEFT_PAREN  // (
+	TOK_LEFT_PAREN  // ( for grouping and evaluation precedence
 	TOK_RIGHT_PAREN // )
 
 	// Assignment
