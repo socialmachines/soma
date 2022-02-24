@@ -1,3 +1,7 @@
+// Copyright 2013 Ben Johnson. All rights reserved.
+// Copyright 2022 Mark Stahl. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the MIT-LICENSE file.
 package main
 
 import (
@@ -5,12 +9,19 @@ import (
 	"fmt"
 	"io"
 	"os"
-
-	"github.com/socialmachines/soma"
+	"strings"
+	// "github.com/socialmachines/soma"
 )
 
 var (
+	VERSION = "0.1.0"
+
+	// Returned when the command usage is printed and
+	// the process should exit with code 2
 	ErrorUsage = errors.New("usage")
+
+	// The CLI receives a command that is not known
+	ErrorUnknownCommand = errors.New("unknown command")
 )
 
 func main() {
@@ -38,7 +49,26 @@ func NewMain() *Main {
 }
 
 func (m *Main) Run(args ...string) error {
-	fmt.Println(args)
-	fmt.Println(soma.TOK_ILLEGAL)
-	return nil
+	if len(args) == 0 || strings.HasPrefix(args[0], "-") {
+		fmt.Fprintln(m.Stderr, m.Usage())
+		return ErrorUsage
+	}
+	switch args[0] {
+	default:
+		return ErrorUnknownCommand
+	}
+}
+
+func (m *Main) Usage() string {
+	return strings.TrimLeft(fmt.Sprintf(`
+Social Machines v%s
+
+Usage:
+    soma [command [arguments*]]
+
+Command:
+    tokens    Prints the list of tokens for a provided string
+
+Use "soma <command> -h" for more information about the command
+`, VERSION), "\n")
 }
