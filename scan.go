@@ -50,6 +50,19 @@ const (
 	eof = -1     // end of file
 )
 
+// FromString is a convenience function the creates a Scanner without
+// requiring the creation of a File. This is used primary for testing
+// and by the `soma` command line utility.
+func (s *Scanner) FromString(expr string) *Scanner {
+	src := []byte(expr)
+
+	fset := token.NewFileSet()
+	file := fset.AddFile("", fset.Base(), len(src))
+
+	s.Init(file, src, nil)
+	return s
+}
+
 // Init prepares the scanner s to tokenize the text src by setting the
 // scanner at the beginning of src. The scanner uses the file set file
 // for position information and it adds line information for each line.

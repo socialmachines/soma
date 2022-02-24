@@ -4,7 +4,6 @@
 package soma
 
 import (
-	"go/token"
 	"testing"
 )
 
@@ -157,22 +156,11 @@ func TestAttributeSetter(t *testing.T) {
 	testTokens(t, received, expected)
 }
 
-func initScanner(expr string) Scanner {
-	src := []byte(expr)
-
-	fset := token.NewFileSet()
-	file := fset.AddFile("", fset.Base(), len(src))
-
-	var s Scanner
-	s.Init(file, src, nil)
-
-	return s
-}
-
 func testTokens(t *testing.T, expr string, tokens []Token) {
-	s := initScanner(expr)
-	msg := "Expected (%s) -- Received (%s)\n"
+	var s Scanner
+	s.FromString(expr)
 
+	msg := "Expected (%s) -- Received (%s)\n"
 	for _, token := range tokens {
 		_, tok, _ := s.Scan()
 		if tok != token {
