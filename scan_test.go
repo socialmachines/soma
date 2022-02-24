@@ -114,6 +114,46 @@ func TestKeywordDefine(t *testing.T) {
 	testTokens(t, received, expected)
 }
 
+func TestAttributeGetter(t *testing.T) {
+	received := `
+		+ (f Foo) getHello -> f @hello.
+	`
+	expected := []Token{
+		TOK_BINARY,
+		TOK_LEFT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_UPPER_IDENT,
+		TOK_RIGHT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_DEFINE,
+		TOK_LOWER_IDENT,
+		TOK_ATTR_GET,
+		TOK_PERIOD,
+	}
+	testTokens(t, received, expected)
+}
+
+func TestAttributeSetter(t *testing.T) {
+	received := `
+	+ (f Foo) setHello: hello -> f @hello: hello.
+`
+	expected := []Token{
+		TOK_BINARY,
+		TOK_LEFT_PAREN,
+		TOK_LOWER_IDENT,
+		TOK_UPPER_IDENT,
+		TOK_RIGHT_PAREN,
+		TOK_LOWER_KEYWORD,
+		TOK_LOWER_IDENT,
+		TOK_DEFINE,
+		TOK_LOWER_IDENT,
+		TOK_ATTR_SET,
+		TOK_LOWER_IDENT,
+		TOK_PERIOD,
+	}
+	testTokens(t, received, expected)
+}
+
 func initScanner(expr string) Scanner {
 	src := []byte(expr)
 

@@ -32,6 +32,8 @@ const (
 	TOK_LOWER_KEYWORD // ifTrue:
 	TOK_UPPER_KEYWORD // Else:
 	TOK_BINARY        // '!', '*', '/', '+', '|', '&', '-', '>', '<', '=', '?', '\', '~', '^', '%'
+	TOK_ATTR_GET      // @name
+	TOK_ATTR_SET      // @name:
 
 	// Grouping
 	TOK_LEFT_BRACE  // {

@@ -130,6 +130,15 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 		switch ch {
 		case -1:
 			tok, lit = TOK_EOF, "EOF"
+		case '@':
+			s.next()
+			lit = s.scanIdentifier()
+			if s.ch == ':' {
+				s.next()
+				tok = TOK_ATTR_SET
+			} else {
+				tok = TOK_ATTR_GET
+			}
 		case '\'':
 			tok, lit = TOK_COMMENT, s.scanComment()
 		case '"':
