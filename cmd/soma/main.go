@@ -1,7 +1,6 @@
-// Copyright 2013 Ben Johnson. All rights reserved.
 // Copyright 2022 Mark Stahl. All rights reserved.
 // Use of this source code is governed by a MIT-style
-// license that can be found in the MIT-LICENSE file.
+// license that can be found in the LICENSE file.
 package main
 
 import (
