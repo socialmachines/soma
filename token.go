@@ -25,6 +25,7 @@ const (
 	// Lexical types
 	TOK_COMMENT // 'This is a comment'
 	TOK_STRING  // "This is a string"
+	TOK_INT     // 122334
 
 	// Identifiers
 	TOK_LOWER_IDENT   // firstName
@@ -36,16 +37,16 @@ const (
 	TOK_ATTR_SET      // @name:
 
 	// Grouping
-	TOK_LEFT_BRACE  // { for use in blocks
+	TOK_LEFT_BRACE  // { blocks
 	TOK_RIGHT_BRACE // }
-	TOK_LEFT_BRACK  // [ for use in collections such as maps and arrays
+	TOK_LEFT_BRACK  // [ maps, arrays
 	TOK_RIGHT_BRACK // ]
-	TOK_LEFT_PAREN  // ( for grouping and evaluation precedence
+	TOK_LEFT_PAREN  // ( grouping
 	TOK_RIGHT_PAREN // )
 
 	// Assignment
-	TOK_DECLARE // :=
-	TOK_DEFINE  // ->
+	TOK_ASSIGN // :=
+	TOK_DEFINE // ->
 
 	// Puncuation
 	TOK_COMMA      // ,
@@ -59,26 +60,27 @@ var tokens = []string{
 
 	TOK_COMMENT: "COMMENT",
 	TOK_STRING:  "STRING",
+	TOK_INT:     "INT",
 
-	TOK_LOWER_IDENT:   "LOWER_IDENT",
-	TOK_UPPER_IDENT:   "UPPER_IDENT",
-	TOK_LOWER_KEYWORD: "LOWER_KEYWRD",
-	TOK_UPPER_KEYWORD: "UPPER_KEYWRD",
+	TOK_LOWER_IDENT:   "IDENT",
+	TOK_UPPER_IDENT:   "IDENT",
+	TOK_LOWER_KEYWORD: "KEYWORD",
+	TOK_UPPER_KEYWORD: "KEYWORD",
 	TOK_BINARY:        "BINARY",
 
-	TOK_LEFT_BRACE:  "{",
-	TOK_RIGHT_BRACE: "}",
-	TOK_LEFT_BRACK:  "[",
-	TOK_RIGHT_BRACK: "]",
-	TOK_LEFT_PAREN:  "(",
-	TOK_RIGHT_PAREN: ")",
+	TOK_LEFT_BRACE:  "LEFT_BRACE",
+	TOK_RIGHT_BRACE: "RIGHT_BRACE",
+	TOK_LEFT_BRACK:  "LEFT_BRACK",
+	TOK_RIGHT_BRACK: "RIGHT_BRACK",
+	TOK_LEFT_PAREN:  "LEFT_PAREN",
+	TOK_RIGHT_PAREN: "RIGHT_PAREN",
 
-	TOK_DECLARE: ":=",
-	TOK_DEFINE:  "->",
+	TOK_ASSIGN: "ASSIGN",
+	TOK_DEFINE: "DEFINE",
 
-	TOK_COMMA:      ",",
-	TOK_SEMI_COLON: ";",
-	TOK_PERIOD:     ".",
+	TOK_COMMA:      "COMMA",
+	TOK_SEMI_COLON: "SEMI-COLON",
+	TOK_PERIOD:     "PERIOD",
 }
 
 // String returns the string corresponding to the token tok.

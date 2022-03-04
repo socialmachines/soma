@@ -27,11 +27,11 @@ func Test_TokensCommand(t *testing.T) {
 
 func Test_TokensCommand_WithArgs(t *testing.T) {
 	tokens := []string{
-		"UPPER_IDENT (True)",
-		":= (:=)",
-		"UPPER_IDENT (Object)",
-		"LOWER_IDENT (new)",
-		". (.)",
+		"IDENT (True)",
+		"ASSIGN (:=)",
+		"IDENT (Object)",
+		"IDENT (new)",
+		"PERIOD (.)",
 	}
 	expected := strings.Join(tokens, "\n")
 

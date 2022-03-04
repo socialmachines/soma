@@ -117,6 +117,8 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 	pos = s.file.Pos(s.offset)
 
 	switch ch := s.ch; {
+	case isDigit(ch):
+		tok, lit = TOK_INT, s.scanInteger()
 	case unicode.IsUpper(ch):
 		lit = s.scanIdentifier()
 		if s.ch == ':' {
@@ -159,7 +161,7 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 		case ':':
 			if s.ch == '=' {
 				s.next()
-				tok, lit = TOK_DECLARE, ":="
+				tok, lit = TOK_ASSIGN, ":="
 			}
 		case '{':
 			tok, lit = TOK_LEFT_BRACE, "{"
@@ -254,6 +256,14 @@ func (s *Scanner) scanIdentifier() string {
 	s.ch = eof
 
 exit:
+	return string(s.src[offs:s.offset])
+}
+
+func (s *Scanner) scanInteger() string {
+	offs := s.offset
+	for isDigit(s.ch) {
+		s.next()
+	}
 	return string(s.src[offs:s.offset])
 }
 

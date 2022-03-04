@@ -13,7 +13,7 @@ func TestAssignment(t *testing.T) {
 	`
 	expected := []Token{
 		TOK_UPPER_IDENT,
-		TOK_DECLARE,
+		TOK_ASSIGN,
 		TOK_UPPER_IDENT,
 		TOK_LOWER_IDENT,
 		TOK_PERIOD,
@@ -137,8 +137,8 @@ func TestAttributeGetter(t *testing.T) {
 
 func TestAttributeSetter(t *testing.T) {
 	received := `
-	+ (f Foo) setHello: hello -> f @hello: hello.
-`
+		+ (f Foo) setHello: hello -> f @hello: hello.
+	`
 	expected := []Token{
 		TOK_BINARY,
 		TOK_LEFT_PAREN,
@@ -152,6 +152,26 @@ func TestAttributeSetter(t *testing.T) {
 		TOK_ATTR_SET,
 		TOK_LOWER_IDENT,
 		TOK_PERIOD,
+	}
+	testTokens(t, received, expected)
+}
+
+func TestNumberCollection(t *testing.T) {
+	received := `
+		numbers := [1. 22. 333. 4444]
+	`
+	expected := []Token{
+		TOK_LOWER_IDENT,
+		TOK_ASSIGN,
+		TOK_LEFT_BRACK,
+		TOK_INT,
+		TOK_PERIOD,
+		TOK_INT,
+		TOK_PERIOD,
+		TOK_INT,
+		TOK_PERIOD,
+		TOK_INT,
+		TOK_RIGHT_BRACK,
 	}
 	testTokens(t, received, expected)
 }
