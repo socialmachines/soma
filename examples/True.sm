@@ -1,13 +1,15 @@
 True := Object new.
 
-'True ifTrue: { "do something" } Else: { "do something else" }'
-True externalBehavior: "ifTrue:Else:" Does: {
-  |trueBlock. elseBlock. t|
+'True ifTrue: [ "do something" ] Else: [ "do something else" ]'
+True defineExternalBehavior: "ifTrue:Else:" As: [
+  |trueBlock elseBlock t|
   trueBlock value
-}.
+].
 
 'True not'
-True externalBehavior: "not" Does: {
+True defineExternalBehavior: "not" As: [
   |t|
   False
-}.
+].
+
+

@@ -120,20 +120,20 @@ func (s *Scanner) Scan() (pos token.Pos, tok Token, lit string) {
 	case isDigit(ch):
 		tok, lit = TOK_INT, s.scanInteger()
 	case unicode.IsUpper(ch):
-		lit = s.scanIdentifier()
+		ident := s.scanIdentifier()
 		if s.ch == ':' {
 			s.next()
-			tok, lit = TOK_UPPER_KEYWORD, lit+":"
+			tok, lit = TOK_UPPER_KEYWORD, ident+":"
 		} else {
-			tok, lit = TOK_UPPER_IDENT, lit
+			tok, lit = TOK_UPPER_IDENT, ident
 		}
 	case unicode.IsLower(ch):
-		lit = s.scanIdentifier()
+		ident := s.scanIdentifier()
 		if s.ch == ':' {
 			s.next()
-			tok, lit = TOK_LOWER_KEYWORD, lit+":"
+			tok, lit = TOK_LOWER_KEYWORD, ident+":"
 		} else {
-			tok, lit = TOK_LOWER_IDENT, lit
+			tok, lit = TOK_LOWER_IDENT, ident
 		}
 	case isBinary(ch):
 		tok, lit = TOK_BINARY, s.scanBinary()

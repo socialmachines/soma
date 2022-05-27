@@ -37,9 +37,9 @@ const (
 	TOK_ATTR_SET      // @name:
 
 	// Grouping
-	TOK_LEFT_BRACE  // { blocks
+	TOK_LEFT_BRACE  // { maps, arrays
 	TOK_RIGHT_BRACE // }
-	TOK_LEFT_BRACK  // [ maps, arrays
+	TOK_LEFT_BRACK  // [ blocks
 	TOK_RIGHT_BRACK // ]
 	TOK_LEFT_PAREN  // ( grouping
 	TOK_RIGHT_PAREN // )
