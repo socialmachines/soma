@@ -24,10 +24,10 @@ func TestAssignment(t *testing.T) {
 func TestUnary(t *testing.T) {
 	received := `
 		'True not'
-		True defineExternalBehavior: "not" As: [
+		True defineExternalBehavior: "not" As: {
 			|t|
 			False
-		].
+		}.
 	`
 	expected := []Token{
 		TOK_COMMENT,
@@ -35,12 +35,12 @@ func TestUnary(t *testing.T) {
 		TOK_LOWER_KEYWORD,
 		TOK_STRING,
 		TOK_UPPER_KEYWORD,
-		TOK_LEFT_BRACK,
+		TOK_LEFT_BRACE,
 		TOK_BINARY,
 		TOK_LOWER_IDENT,
 		TOK_BINARY,
 		TOK_UPPER_IDENT,
-		TOK_RIGHT_BRACK,
+		TOK_RIGHT_BRACE,
 		TOK_PERIOD,
 	}
 	testTokens(t, received, expected)
@@ -66,11 +66,11 @@ func TestUnaryDefine(t *testing.T) {
 
 func TestKeyword(t *testing.T) {
 	received := `
-		'True ifTrue: [ "do something" ] Else: [ "do something else" ]'
-		True defineExternalBehavior: "ifTrue:Else:" As: [
+		'True ifTrue: { "do something" } Else: { "do something else" }'
+		True defineExternalBehavior: "ifTrue:Else:" As: {
 			|trueBlock elseBlock t|
 			trueBlock value
-		].
+		}.
 	`
 	expected := []Token{
 		TOK_COMMENT,
@@ -78,7 +78,7 @@ func TestKeyword(t *testing.T) {
 		TOK_LOWER_KEYWORD,
 		TOK_STRING,
 		TOK_UPPER_KEYWORD,
-		TOK_LEFT_BRACK,
+		TOK_LEFT_BRACE,
 		TOK_BINARY,
 		TOK_LOWER_IDENT,
 		TOK_LOWER_IDENT,
@@ -86,7 +86,7 @@ func TestKeyword(t *testing.T) {
 		TOK_BINARY,
 		TOK_LOWER_IDENT,
 		TOK_LOWER_IDENT,
-		TOK_RIGHT_BRACK,
+		TOK_RIGHT_BRACE,
 		TOK_PERIOD,
 	}
 	testTokens(t, received, expected)

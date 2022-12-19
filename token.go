@@ -37,9 +37,9 @@ const (
 	TOK_ATTR_SET      // @name:
 
 	// Grouping
-	TOK_LEFT_BRACE  // { maps, arrays
+	TOK_LEFT_BRACE  // { blocks
 	TOK_RIGHT_BRACE // }
-	TOK_LEFT_BRACK  // [ blocks
+	TOK_LEFT_BRACK  // [ arrays, maps
 	TOK_RIGHT_BRACK // ]
 	TOK_LEFT_PAREN  // ( grouping
 	TOK_RIGHT_PAREN // )
@@ -49,9 +49,9 @@ const (
 	TOK_DEFINE // ->
 
 	// Puncuation
-	TOK_COMMA      // ,
-	TOK_SEMI_COLON // ;
-	TOK_PERIOD     // .
+	TOK_COMMA      // , (continue, blocks and maps)
+	TOK_SEMI_COLON // ; (cascade)
+	TOK_PERIOD     // . (end, arrays and statements)
 )
 
 var tokens = []string{
